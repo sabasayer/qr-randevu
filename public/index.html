@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/styles/index.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-10">
+                    <h1 class="title">Randevu Takip</h1>
+                    <div class="box">
+                        <h2 class="subtitle">Yeni Kayıt Ekle</h2>
+                        <div class="field">
+                            <label class="label">Adı</label>
+                            <div class="control">
+                                <input class="input" placeholder="adı" v-model="newData.name">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Email Adresi</label>
+                            <div class="control">
+                                <input class="input" placeholder="email" v-model="newData.email">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Telefon</label>
+                            <div class="control">
+                                <input class="input" placeholder="telefon" v-model="newData.phone">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <button @click="create_randevu" :class="{'is-loading':loading}"
+                                    class="button is-link is-fullwidth">Kaydet</button>
+                            </div>
+                        </div>
+                    </div>
+                    <progress v-if="loading" class="progress is-small is-primary" max="100">15%</progress>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Adı</th>
+                                <th>Email</th>
+                                <th>Telefon</th>
+                                <th>QR</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in items">
+                                <td>
+                                    {{item.id}}
+                                </td>
+                                <td>{{item.name}}</td>
+                                <td>
+                                    {{item.email}}
+                                </td>
+                                <td>
+                                    {{item.phone}}
+                                </td>
+                                <td>
+                                    <img @click="open_modal(item)" class="qr_image" :src="item.qr">
+                                </td>
+                                <td>
+                                    <a class="delete" @click="remove(item)"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal" :class="{'is-active':isModalVisible}">
+            <div class="modal-background"></div>
+            <div class="modal-content text-center">
+                <img :src="qr" class="big-qr">
+            </div>
+            <button @click="close_modal" class="modal-close is-large" aria-label="close"></button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="/static/scripts/main.js"></script>
+</body>
+
+</html>

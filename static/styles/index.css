@@ -1,0 +1,16 @@
+body{
+    background-color: #fefefe;
+}
+
+.text-center{
+    text-align: center;
+}
+
+table .qr_image{
+    width:100px;
+    max-width: 100px;
+}
+
+.big-qr{
+    width:50%;
+}

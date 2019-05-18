@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/vue-qrcode-reader@1.3.1/dist/vue-qrcode-reader.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+
+</head>
+
+<body>
+    <div id="app">
+        <h1 class="title">Rezervasyon Kontrol</h1>
+        <p v-if="decodedContent">
+            Qr Code: <b>{{ decodedContent }}</b>
+        </p>
+        <progress v-if="loading" class="progress is-small is-primary" max="100">15%</progress>
+        <div v-if="found" class="notification is-success">
+            <h2 class="subtitle">Rezervasyon Bulundu</h2>
+            <p>{{randevu.name}}</p>
+            <p>{{randevu.email}}</p>
+            <p>{{randevu.phone}}</p>
+        </div>
+
+        <p class="error" class="notification is-danger">
+            {{ errorMessage }}
+        </p>
+        <qrcode-stream @decode="onDecode" @init="onInit"></qrcode-stream>
+
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-qrcode-reader@1.3.1/dist/vue-qrcode-reader.browser.js"></script>
+    <script src="/static/scripts/read.js"></script>
+</body>
+
+</html>
